@@ -1,7 +1,7 @@
 
 
 import Button from "./components/Button/Button.tsx";
-import {useState, MouseEvent} from "react";
+import { useState, MouseEvent } from "react";
 import Input from "./components/Input/Input.tsx";
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
     <>
       <Button onClick={addCounter}>Кнопочка</Button>
       <Button appearance='big' onClick={addCounter}>Кнопочка</Button>
-      <Input placeholder='Email'/>
+      <Input placeholder='Email' />
     </>
   )
 }
