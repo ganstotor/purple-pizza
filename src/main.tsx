@@ -12,6 +12,8 @@ import { AuthLayout } from './layout/Auth/AuthLayout.tsx';
 import { Login } from './pages/Login/Login.tsx';
 import { Register } from './pages/Register/Register.tsx';
 import { RequireAuth } from './helpers/RequireAuth.tsx';
+import { Provider } from 'react-redux';
+import { store } from './store/store.ts';
 
 const Menu = lazy(() => import('./pages/Menu/Menu'));
 
@@ -32,8 +34,8 @@ const router = createBrowserRouter([
         path: '/product/:id',
         element: <Product />,
         errorElement: <>Ошибочка</>,
-        loader: async ({params}) => {
-          const {data} = await axios.get(`${PREFIX}/products/${params.id}`);
+        loader: async ({ params }) => {
+          const { data } = await axios.get(`${PREFIX}/products/${params.id}`);
           return data;
         }
       },
@@ -41,15 +43,15 @@ const router = createBrowserRouter([
   },
   {
     path: '/auth',
-    element: <AuthLayout/>,
+    element: <AuthLayout />,
     children: [
       {
         path: 'login',
-        element: <Login/>
+        element: <Login />
       },
       {
         path: 'register',
-        element: <Register/>
+        element: <Register />
       }
     ]
   },
@@ -61,6 +63,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+    <Provider store={store}>
       <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 )
