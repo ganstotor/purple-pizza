@@ -19,7 +19,6 @@ export type LoginForm = {
 }
 
 export function Login() {
-  const [error, setError] = useState<string | null>();
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const {jwt, loginErrorMessage} = useSelector((s: RooState) => s.user);
@@ -59,7 +58,7 @@ export function Login() {
     </form>
     <div className={styles['links']}>
       <div>Нет аккаунта?</div>
-      <Link to="/>auth/register">Зарегистрироваться</Link>
+      <Link to="/auth/register">Зарегистрироваться</Link>
     </div>
   </div>
 }
