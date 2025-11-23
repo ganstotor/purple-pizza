@@ -2,13 +2,20 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import styles from './Layout.module.css'
 import Button from "../../components/Button/Button";
 import cn from 'classnames';
-import { useDispatch } from "react-redux";
-import type { AppDispatch } from "../../store/store";
-import { userActions } from "../../store/user.slice";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RooState } from "../../store/store";
+import { getProfile, userActions } from "../../store/user.slice";
+import { useEffect } from "react";
+
 
 export function Layout() {
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>();
+  const profile = useSelector((s: RooState) => s.user.profile);
+
+  useEffect(() => {
+dispatch(getProfile())
+  }, [dispatch]);
 
   const logout = () => {
     dispatch(userActions.logout());
@@ -20,10 +27,10 @@ export function Layout() {
       <div className={styles['user']}>
         <img className={styles['avatar']} src="/man.png" height="70px" alt="" />
         <div className={styles['name']}>
-          Александр Грицун
+          {profile?.name}
         </div>
         <div className={styles['email']}>
-          ganstotor@gmail.com
+        {profile?.email}
         </div>
       </div>
       <div className={styles['menu']}>
