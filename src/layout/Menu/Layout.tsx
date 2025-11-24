@@ -8,10 +8,13 @@ import { getProfile, userActions } from "../../store/user.slice";
 import { useEffect } from "react";
 
 
+
+
 export function Layout() {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const profile = useSelector((s: RooState) => s.user.profile);
+  const items = useSelector((s: RooState) => s.cart.items);
 
   useEffect(() => {
 dispatch(getProfile())
@@ -44,7 +47,8 @@ dispatch(getProfile())
           [styles.active]: isActive
         })}>
           <img src="/cart.svg" height="25px" alt="" />
-          Корзина</NavLink>
+          Корзина <span className={styles['cart-count']}>{items.reduce((acc, item) => acc += item.count, 0)}</span></NavLink>
+
       </div>
       <Button className={styles['exit']} onClick={logout}>
         <img src="/logout.svg" height="20px" alt="" />
